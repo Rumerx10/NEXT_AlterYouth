@@ -221,7 +221,7 @@ const ScholarshipCommunity = () => {
             </div>
           ))
           }
-</div>
+          </div>
         </div>
         ))}
         </div>

@@ -2,13 +2,38 @@
 import React, { useState } from "react";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import PhoneNumberInput from "./PhoneNumberInput";
+import { Toaster, toast } from "react-hot-toast";
+
 
 const JoinAlterYouthCard = () => {
   const [count, setCount] = useState(1);
   const [phone, setPhone] = useState("");
 
+  const handleCount = (action) => {
+    if (action === "add") {
+      if (count < 3) {
+        setCount(count + 1);
+      } else {
+        toast(
+          <span className="font-bold">
+            Scholarship limit reached for the current scholarship session
+          </span>,
+          {
+            icon: "⚠️",
+          }
+        );
+      }
+    } else {
+      if (count > 1) {
+        setCount(count - 1);
+      }
+    }
+  };
+  
+
   return (
     <div className="flex flex-col gap-3 bg-white rounded-lg p-4 mx-5 lg:mx-0 w-full lg:w-[350px] shadow-lg lg:shadow-none">
+      <Toaster />
       <p className="text-black font-semibold">
         Join the{" "}
         <span className="text-primaryGreen text-lg font-semibold">
@@ -39,7 +64,7 @@ const JoinAlterYouthCard = () => {
               className={`${
                 count === 1 ? "bg-[#b5b5b5]" : "bg-primaryGreen"
               } p-3 text-white rounded-lg cursor-pointer`}
-              onClick={() => setCount((count) => count - 1)}
+              onClick={()=>handleCount("subtract")}
               disabled={count === 1}
               type="button"
             >
@@ -52,8 +77,7 @@ const JoinAlterYouthCard = () => {
               className={`${
                 count === 3 ? "bg-[#b5b5b5]" : "bg-primaryGreen"
               } p-3 text-white rounded-lg cursor-pointer`}
-              onClick={() => setCount((count) => count + 1)}
-              disabled={count === 3}
+              onClick={()=>handleCount("add")}
               type="button"
             >
               <FiPlus />
