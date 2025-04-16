@@ -1,6 +1,12 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
 import { FaLocationDot } from "react-icons/fa6";
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Autoplay } from "swiper/modules";
 
 const Schools = () => {
   const schools = [
@@ -95,44 +101,53 @@ const Schools = () => {
   ];
 
   return (
-    <div className=" w-full flex items-center justify-center">
-      <div className="flex flex-col p-5 gap-4 max-w-7xl">
-      <h2 className="text-2xl font-bold text-black tracking-wide">
-        Students from Government Primary Schools Nationwide
-      </h2>
-      <div
-        className="flex gap-4 overflow-x-scroll overflow-y-hidden"
-        style={{
-          scrollBehavior: "smooth",
-          msOverflowStyle: "none", // For Internet Explorer
-          scrollbarWidth: "none",  // For Firefox
-        }}
-      >
-        {schools.map((school, index) => (
-          <div key={index} className="flex flex-col gap-4 justify-between">
-            <div className="h-[250px] w-[400px] flex">
-              <Image
-                src={school.school_img}
-                height={250}
-                width={400}
-                alt={school.name}
-                className="object-cover w-full rounded-xl"
-              />
-            </div>
-            <div>
-              <h3 className="text-black font-bold">{school.name}</h3>
-              <div className="flex gap-1 items-center">
-                <FaLocationDot color="#1dc468" />
-                <p className="text-[#8c8c8c] text-sm mt-1">
-                  {school.location}, Bangladesh
-                </p>
-              </div>
-            </div>
-          </div>
-        ))}
+    <div className="w-full flex flex-col gap-5">
+      <div className="flex items-center justify-center max-w-7xl">
+        <h2 className=" px-5 md:px-0 text-2xl font-bold flex text-black tracking-wide">
+          Students from Government Primary Schools Nationwide
+        </h2>
       </div>
-    </div></div>
-    
+      <div className="w-full">        
+        <Swiper
+          centeredSlides={true}
+          navigation={false}
+          loop={true}
+          slidesPerView={"auto"}
+          spaceBetween={30}
+          // autoplay={{
+          //   delay:1000,
+          //   disableOnInteraction: false,
+          // }}
+          modules={[Autoplay]}
+          className="mySwiper"
+        >
+          {schools.map((school, index) => (
+            <SwiperSlide key={index} className="!w-[350px] md:!w-[400px]">
+              <div className="flex flex-col gap-4 justify-between">
+                <div className="h-[250px] w-full flex">
+                  <Image
+                    src={school.school_img}
+                    height={250}
+                    width={400}
+                    alt={school.name}
+                    className="object-cover w-full rounded-xl"
+                  />
+                </div>
+                <div>
+                  <h3 className="text-black font-bold">{school.name}</h3>
+                  <div className="flex gap-1 items-center">
+                    <FaLocationDot color="#1dc468" />
+                    <p className="text-[#8c8c8c] text-sm mt-1">
+                      {school.location}, Bangladesh
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import { Keyboard, Pagination, Navigation, Scrollbar, A11y } from 'swiper/modules';
+import { Autoplay, Keyboard, Pagination, Navigation, Scrollbar, A11y } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
@@ -34,41 +34,69 @@ const CommunityCarousel = () => {
   ];
 
   return (
-    <div className="relative flex w-screen h-auto py-6 bg-white overflow-visible">
+    <div className="relative px-0  py-0 flex flex-col gap-10 w-full h-auto bg-white ">
       <Swiper
-        modules={[Keyboard, Navigation, Pagination]}
+        modules={[Autoplay, Keyboard, Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={0}
         loop={true}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
         breakpoints={{
           320: { slidesPerView: 1 },
           768: { slidesPerView: 2 },
           1024: { slidesPerView: 4 },
         }}
         keyboard={{ enabled: true }}
-        navigation
+        navigation={{
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        }}
         pagination={{
           clickable: true,
           dynamicBullets: true,
-          el: '.swiper-pagination',
+          el: ".swiper-pagination",
         }}
         onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log('slide change')}
-        className='relative w-full h-full px-20 overflow-visible'
+        onSlideChange={() => console.log("slide change")}
+        className="relative w-full h-full px-20 overflow-visible"
       >
         {images.map((img, index) => (
           <SwiperSlide key={index}>
-            <Image width={475} height={475} src={img} alt="switzerland map" className="h-full w-full object-cover" />
+            <Image
+              width={1280}
+              height={760}
+              src={img}
+              alt="switzerland map"
+              className="h-full w-full object-cover"
+            />
           </SwiperSlide>
         ))}
       </Swiper>
 
+      {/* Navigation Buttons BOTH_SIDE_ALIGNMENT */}
+      <div className="z-50 absolute hidden lg:block left-16 top-[52%] transform -translate-y-1/2">
+        <div className="swiper-button-prev">
+          <IoIosArrowBack color="gray" />
+        </div>
+      </div>
+      <div className="z-50 absolute hidden lg:block right-16 top-[52%] transform -translate-y-1/2">
+        <div className="swiper-button-next">
+          <IoIosArrowForward  color="gray" />
+        </div>
+      </div>
+
       {/* Pagination Bullets */}
-      <div className="block lg:hidden absolute bottom-[-30px] left-1/2 transform -translate-x-1/2">
+      <div className="block lg:hidden absolute bottom-[-50px] left-1/2 transform -translate-x-1/2">
         <div className="swiper-pagination"></div>
       </div>
 
       {/* Inline CSS */}
       <style jsx>{`
+        .swiper-wrapper {
+          overflow: visible !important;
+        }
         .swiper-button-next,
         .swiper-button-prev {
           background-color: white !important;
@@ -78,19 +106,17 @@ const CommunityCarousel = () => {
           display: flex !important;
           justify-content: center !important;
           align-items: center !important;
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+            0 6px 20px 0 rgba(0, 0, 0, 0.19);
           top: 50%;
           z-index: 50;
         }
+
+        // Modify default "ARROW" icon
         .swiper-button-next::after,
         .swiper-button-prev::after {
-          
-        }
-        .swiper-pagination-bullet-active {
-          background-color: red !important;
-        }
-        .swiper-pagination-bullet {
-          background-color: #1DBF73 !important;
+          font-size: 0px !important;
+          content: "" !important;
         }
       `}</style>
     </div>

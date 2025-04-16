@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import Image from "next/image";
@@ -40,8 +40,9 @@ const Community = () => {
   };
 
   const visibleImages = 4; // Number of images to show in the viewport
-  const visibleImageIndexes = Array.from({ length: visibleImages }, (_, i) =>
-    (currentIndex + i) % images.length
+  const visibleImageIndexes = Array.from(
+    { length: visibleImages },
+    (_, i) => (currentIndex + i) % images.length
   );
   const [hydrated, setHydrated] = useState(false);
   const isMobileScreen = useIsMobileScreen();
@@ -53,22 +54,25 @@ const Community = () => {
   if (!hydrated) return null;
 
   return (
-    <div className="relative flex flex-col items-center justify-center w-full mx-auto overflow-hidden p-5 lg:p-14 max-w-screen">
+    <div className="relative flex flex-col items-center justify-center w-full mx-auto overflow-hidden py-14 max-w-screen">
       <div className="flex flex-col gap-2 w-full items-center px-5 max-w-7xl">
-        <h2 className="text-black font-semibold text-2xl w-full">Community Impact</h2>
-        {
-          !isMobileScreen && <p className="text-black">Every scholarship begins with shipping a mobile phone to the parent of the student. Then they create their own mobile bank account
-          using that phone, to start receiving their child's scholarships directly, every month.
+        <h2 className="text-black font-semibold text-2xl w-full mb-8 lg:mb-0">
+          Community Impact
+        </h2>
+        <p className="text-black hidden lg:block mb-8">
+          Every scholarship begins with shipping a mobile phone to the parent
+          of the student. Then they create their own mobile bank account using
+          that phone, to start receiving their child's scholarships directly,
+          every month.
         </p>
-        }        
-      </div> 
-
-        <CommunityCarousel />  
-
-      {isMobileScreen && <p className="block lg:hidden text-blackk font-thin p-5">Every scholarship begins with shipping a mobile phone to the parent of the student. Then they create their own mobile bank account
-          using that phone, to start receiving their child's scholarships directly, every month.
-        </p>
-      }
+      </div>
+      <CommunityCarousel />
+      <p className="block lg:hidden text-black font-thin p-5 mt-12">
+        Every scholarship begins with shipping a mobile phone to the parent of
+        the student. Then they create their own mobile bank account using that
+        phone, to start receiving their child's scholarships directly, every
+        month.
+      </p>
     </div>
   );
 };
