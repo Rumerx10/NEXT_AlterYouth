@@ -13,13 +13,13 @@ import { TbLogin } from "react-icons/tb";
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   return (
-    <div className="">
+    <div className="relative">
       <div
         className={`fixed inset-0 bg-black ${isSidebarOpen ? "opacity-20" : "opacity-0 pointer-events-none"}`}
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-      ></div>
+      />
       <div
-        className={`fixed top-0 bottom-0 left-0 z-40 w-72 bg-white transform ${
+        className={`fixed top-14 lg:top-0 left-0 bottom-0 w-72 bg-white transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-all duration-500 `}
       >
